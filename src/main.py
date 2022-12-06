@@ -38,11 +38,28 @@ def _prime_generator(length: int) -> int:
     return prime_num
 
 
+# adopted from pseudocode at https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Modular_integers
 def _extended_euclidean_modular_inverse(a: int, n: int) -> int:
     t: int = 0
     new_t: int = 1
+    r: int  = n
+    new_r: int = a
 
-    return 0
+    while (new_r!=0):
+        quotient = r//new_r
+        hold_t = t
+        t = new_t
+        new_t = hold_t - quotient * new_t
+        hold_r = r
+        r = new_r
+        new_r = r - quotient * new_r
+    
+    if r > 1:
+        # a not invertible
+        return -1
+    if t < 0:
+        t = t + n
+    return t
 
 
 def _generate_rsa_key(length: int) -> str:
@@ -52,7 +69,8 @@ def _generate_rsa_key(length: int) -> str:
 
     n: int = p * q
 
-    totient_lambda = (p - 1) * (q - 1)  # since they are prime
+    totient_lambda = (p - 1) * (q - 1)  
+    # since they are prime, no need to do lcm
     # math.lcm(p-1,q-1)
 
     # while True:
@@ -63,10 +81,12 @@ def _generate_rsa_key(length: int) -> str:
 
     e_val = KNOWN_TOTIENT_E
 
-    e_mod_phi_n = e_val % totient_lambda
+    # e_mod_phi_n = e_val % totient_lambda
 
     # d_val: int = 12
-    d_val = 1 / e_mod_phi_n
+    # d_val = 1 / e_mod_phi_n
+    d_val = _extended_euclidean_modular_inverse(e_val, totient_lambda)
+    # print("d_val: ", d_val)
 
     # bytes(d_val)
     # "{:X}".format(n)
