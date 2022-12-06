@@ -52,7 +52,7 @@ def _extended_euclidean_modular_inverse(a: int, n: int) -> int:
         new_t = hold_t - quotient * new_t
         hold_r = r
         r = new_r
-        new_r = r - quotient * new_r
+        new_r = hold_r - quotient * new_r
     
     if r > 1:
         # a not invertible
