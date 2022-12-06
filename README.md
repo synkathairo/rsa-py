@@ -6,7 +6,7 @@ This is a proof-of-concept implementation of the [Rivest–Shamir–Adleman](htt
 
 ```bash
 cd src
-python ./main.py --length 8
+python3 ./main.py --length 8
 ```
 
 ### References
