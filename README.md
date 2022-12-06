@@ -2,6 +2,13 @@
 
 This is a proof-of-concept implementation of the [Rivest–Shamir–Adleman](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) (RSA) algorithm in Python (>=3.10), for learning purposes.
 
+## How to execute
+
+```bash
+cd src
+python ./main.py --length 8
+```
+
 ### References
 - https://www.geeksforgeeks.org/java-program-to-implement-the-rsa-algorithm/
 - https://github.com/yigitusta/RSA-Implementation/blob/master/rsa.c
